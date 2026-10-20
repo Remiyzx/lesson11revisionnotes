@@ -120,7 +120,7 @@
         .py-text, .vocab-collo, .vocab-sent, .dlg-py, .qa-q, .qa-a, .quiz-ans, 
         .correct-example, .error-example, .wb-q, .ans-content, .wb-py-q, .ans-py, 
         .sent-py, .pinyin-box, .vocab-pinyin-cell, .vocab-pinyin, .slot, .math-box, 
-        .dlg-turn, .dlg-turn-ans, .ud-slot, .ud-ans, .grammar-hl {
+        .dlg-turn, .dlg-turn-ans, .ud-slot, .ud-ans, .grammar-hl, .supp-tile-py {
             font-family: var(--pinyin-font) !important;
         }
 
@@ -184,6 +184,51 @@
         .tile-quiz-btn.revealed { background-color: #EFF6FF; border: 2px solid var(--answer-blue); cursor: default; }
         .tile-quiz-btn.revealed .quiz-hint { display: none; }
         .tile-quiz-btn.revealed .quiz-ans { display: block; }
+
+        /* MONOCHROME SUPPLEMENTARY TILES (NON-INTERACTIVE DIRECT VIEW) */
+        .supp-tile {
+            background: #FFFFFF;
+            border: 2px solid #64748B;
+            border-radius: 12px;
+            padding: 1.1rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 140px;
+            transition: all 0.2s ease;
+        }
+        .supp-tile:hover {
+            border-color: #0F172A;
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+        }
+        .supp-tile-header {
+            font-size: 0.82rem;
+            font-weight: bold;
+            color: #475569;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .supp-tile-meaning {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0F172A;
+            margin-bottom: 10px;
+        }
+        .supp-tile-py {
+            width: 100%;
+            background-color: #F1F5F9;
+            border: 1.5px solid #CBD5E1;
+            border-radius: 8px;
+            padding: 8px 6px;
+            font-weight: bold;
+            color: #0F172A;
+            font-size: 1.25rem;
+            user-select: text;
+        }
 
         /* WORKBOOK INTERACTIVE ITEMS */
         .wb-item {
@@ -472,6 +517,7 @@
                 <h2>Vocab Quiz Flashcards (Click Tile to Reveal Pinyin)</h2>
             </div>
 
+            <!-- PART 1 -->
             <div class="card">
                 <div class="card-title">
                     <span>Part 1: Text 1 Vocabulary (Time & Ability)</span>
@@ -570,6 +616,7 @@
                     </div>
                 </div>
 
+                <!-- PART 2 -->
                 <div class="card-title" style="margin-top: 2.5rem;">
                     <span>Part 2: Text 2 Vocabulary (Daily Routine & Questions)</span>
                     <span class="page-badge">Pg 178-179</span>
@@ -641,6 +688,118 @@
                         <div class="tile-quiz-btn" onclick="this.classList.add('revealed')"><span class="quiz-hint"> Reveal Pinyin</span><span class="quiz-ans">kěyǐ</span></div>
                     </div>
                 </div>
+
+                <!-- PART 3: SUPPLEMENTARY WORDS (DIRECT TILES, MONOCHROME) -->
+                <div class="card-title" style="margin-top: 2.5rem; border-bottom-color: #64748B;">
+                    <span style="color: #0F172A;">Supplementary Words</span>
+                    <span style="background-color: #334155; color: #F8FAFC; font-size: 0.85rem; padding: 3px 12px; border-radius: 12px; font-weight: bold;">Pg 176 & 179-180</span>
+                </div>
+
+                <!-- SUBSECTION 3A: PG 176 -->
+                <p style="font-size: 0.95rem; font-weight: bold; color: #475569; margin: 1rem 0 0.4rem 0; text-transform: uppercase;">• From Textbook Page 176 (Foreign Languages):</p>
+                <div class="vocab-grid">
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #1 (Pg 176)</div>
+                        <div class="supp-tile-meaning">French 🇫🇷</div>
+                        <div class="supp-tile-py">Fǎyǔ</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #2 (Pg 176)</div>
+                        <div class="supp-tile-meaning">German 🇩🇪</div>
+                        <div class="supp-tile-py">Déyǔ</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #3 (Pg 176)</div>
+                        <div class="supp-tile-meaning">Russian 🇷🇺</div>
+                        <div class="supp-tile-py">Éyǔ</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #4 (Pg 176)</div>
+                        <div class="supp-tile-meaning">Japanese 🇯🇵</div>
+                        <div class="supp-tile-py">Rìyǔ</div>
+                    </div>
+                </div>
+
+                <!-- SUBSECTION 3B: PG 179-180 -->
+                <p style="font-size: 0.95rem; font-weight: bold; color: #475569; margin: 1.8rem 0 0.4rem 0; text-transform: uppercase;">• From Textbook Pages 179–180 (Daily Life, Interactions & Permissions):</p>
+                <div class="vocab-grid">
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #1 (Pg 179)</div>
+                        <div class="supp-tile-meaning">to dismiss class 🔔</div>
+                        <div class="supp-tile-py">xiàkè</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #2 (Pg 179)</div>
+                        <div class="supp-tile-meaning">to eat (a meal) 🍚</div>
+                        <div class="supp-tile-py">chīfàn</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #3 (Pg 179)</div>
+                        <div class="supp-tile-meaning">to drive a car 🚗</div>
+                        <div class="supp-tile-py">kāichē <span style="font-size:0.9rem; font-weight:normal; color:#64748B;">(chē)</span></div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #4 (Pg 179)</div>
+                        <div class="supp-tile-meaning">to dance 💃</div>
+                        <div class="supp-tile-py">tiàowǔ</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #5 (Pg 179)</div>
+                        <div class="supp-tile-meaning">to sing (a song) 🎤</div>
+                        <div class="supp-tile-py">chànggē</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #6 (Pg 179)</div>
+                        <div class="supp-tile-meaning">to answer 🙋</div>
+                        <div class="supp-tile-py">huídá</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #7 (Pg 179)</div>
+                        <div class="supp-tile-meaning">gift, present 🎁</div>
+                        <div class="supp-tile-py">lǐwù</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #8 (Pg 180)</div>
+                        <div class="supp-tile-meaning">watch, clock ⌚</div>
+                        <div class="supp-tile-py">biǎo</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #9 (Pg 180)</div>
+                        <div class="supp-tile-meaning">fast ⚡</div>
+                        <div class="supp-tile-py">kuài</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #10 (Pg 180)</div>
+                        <div class="supp-tile-meaning">to wait ⏳</div>
+                        <div class="supp-tile-py">děng</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #11 (Pg 180)</div>
+                        <div class="supp-tile-meaning">to smoke 🚭</div>
+                        <div class="supp-tile-py">xīyān</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #12 (Pg 180)</div>
+                        <div class="supp-tile-meaning">difficult 🤯</div>
+                        <div class="supp-tile-py">nán</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #13 (Pg 180)</div>
+                        <div class="supp-tile-meaning">to take pictures 📷</div>
+                        <div class="supp-tile-py">pāizhào</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #14 (Pg 180)</div>
+                        <div class="supp-tile-meaning">note 📝</div>
+                        <div class="supp-tile-py">biàntiáo</div>
+                    </div>
+                    <div class="supp-tile">
+                        <div class="supp-tile-header">Supp #15 (Pg 180)</div>
+                        <div class="supp-tile-meaning">to hail a taxi 🚕</div>
+                        <div class="supp-tile-py">dǎdī</div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
