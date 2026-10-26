@@ -25,6 +25,12 @@
             --error-red: #E11D48;        
             --light-blue: #F0F9FF;      /* Card fill & soft highlight */
 
+            /* MONOCHROME SLATE PALETTE FOR SUPPLEMENTARY WORDS */
+            --supp-bg: #F1F5F9;
+            --supp-border: #64748B;
+            --supp-header: #334155;
+            --supp-text: #0F172A;
+
             /* STANDARD PINYIN FONT STACK */
             --pinyin-font: 'Andika', 'Century Gothic', 'Comic Sans MS', sans-serif;
         }
@@ -238,6 +244,12 @@
             gap: 15px;
             width: 100%;
         }
+        .wb-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+        }
 
         .wb-item {
             background: #FFFFFF;
@@ -328,11 +340,27 @@
             margin-bottom: 1.5rem;
             width: 100%;
         }
+        .phrase-grid-6 {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+        .phrase-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
         .phrase-card {
             background: #FFFFFF;
             border: 1.5px solid var(--border-color);
             border-radius: 10px;
-            padding: 1rem 1.2rem;
+            padding: 0.8rem 0.9rem;
             cursor: pointer;
             transition: all 0.2s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.03);
@@ -346,22 +374,22 @@
             transform: translateY(-2px);
         }
         .phrase-card-py {
-            font-size: 1.2rem;
+            font-size: 1.05rem;
             font-weight: bold;
             color: var(--primary-color);
         }
         .phrase-card-hz {
-            font-size: 0.92rem;
+            font-size: 0.85rem;
             color: #475569;
             margin-top: 2px;
         }
         .phrase-card-en {
             display: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--answer-blue);
             font-weight: 600;
-            margin-top: 8px;
-            padding-top: 6px;
+            margin-top: 6px;
+            padding-top: 4px;
             border-top: 1px dashed var(--border-color);
         }
         .phrase-card.revealed .phrase-card-en {
@@ -439,23 +467,42 @@
         /* TEXTBOOK EXERCISE 4: INLINE CLICK-TO-REVEAL BLANKS */
         .inline-blank {
             display: inline-block;
-            background-color: #FEF3C7;
-            border: 2px dashed #F59E0B;
+            background-color: var(--light-blue);
+            border: 2px dashed var(--accent-color);
             border-radius: 6px;
-            padding: 3px 10px;
+            padding: 2px 14px;
+            min-width: 130px;
+            text-align: center;
             cursor: pointer;
             transition: all 0.2s ease;
             vertical-align: middle;
             margin: 0 4px;
         }
-        .inline-blank:hover { background-color: #FDE68A; }
-        .inline-blank .blank-hint { color: #B45309; font-weight: bold; font-size: 0.95rem; }
-        .inline-blank .blank-content { display: none; }
-        .inline-blank.revealed { background-color: #EFF6FF; border: 2px solid var(--answer-blue); cursor: default; }
+        .inline-blank:hover {
+            background-color: #DBEAFE;
+            border-color: var(--primary-color);
+        }
+        .inline-blank .blank-hint {
+            color: var(--accent-color);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .inline-blank .blank-content {
+            display: none;
+        }
+        .inline-blank.revealed {
+            background-color: #EFF6FF;
+            border: 2px solid var(--answer-blue);
+            cursor: default;
+        }
         .inline-blank.revealed .blank-hint { display: none; }
-        .inline-blank.revealed .blank-content { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: left; }
-        .inline-blank.revealed .blank-py { font-family: var(--pinyin-font); font-weight: bold; color: var(--answer-blue); font-size: 1.1rem; }
-        .inline-blank.revealed .blank-hz { font-size: 0.88rem; color: #1E40AF; }
+        .inline-blank.revealed .blank-content {
+            display: inline;
+            font-family: var(--pinyin-font);
+            font-weight: bold;
+            color: var(--answer-blue);
+            font-size: 1.15rem;
+        }
 
         /* TEXTBOOK EXERCISE 5: DUAL COLUMN READING COMPREHENSION BALANCED */
         .reading-dual-block {
@@ -479,7 +526,7 @@
             border: 1.5px solid #CBD5E1;
             border-radius: 10px;
             padding: 1.5rem;
-            line-height: 1.8;
+            line-height: 1.9;
             font-size: 1.05rem;
             color: #334155;
             display: flex;
@@ -543,7 +590,7 @@
             .sidebar-menu { display: flex; overflow-x: auto; padding: 0.5rem; }
             .sidebar-menu button { white-space: nowrap; padding: 0.8rem 1rem; border-left: none; border-bottom: 3px solid transparent; }
             .sidebar-menu button.active { border-left-color: transparent; border-bottom-color: #93C5FD; }
-            .vocab-grid, .wb-grid-3, .drill-flex, .reading-dual-block { flex-direction: column; display: flex; }
+            .vocab-grid, .wb-grid-3, .wb-grid-2, .drill-flex, .reading-dual-block, .phrase-grid-6, .phrase-grid-4 { flex-direction: column; display: flex; }
         }
     </style>
 </head>
@@ -558,7 +605,7 @@
         <ul class="sidebar-menu">
             <li><button class="tab-btn active" onclick="openTab(event, 'tab-cheat')"> Key Sentences &amp; Overview</button></li>
             <li><button class="tab-btn" onclick="openTab(event, 'tab-vocab')"> Vocab Quiz Flashcards</button></li>
-            <li><button class="tab-btn" onclick="openTab(event, 'tab-grammar')"> Grammar Rules &amp; Pitfalls</button></li>
+            <li><button class="tab-btn" onclick="openTab(event, 'tab-grammar')"> Grammar Key Points &amp; Rules</button></li>
             <li><button class="tab-btn" onclick="openTab(event, 'tab-dialogues')"> Core Dialogue Breakdown</button></li>
             <li><button class="tab-btn" onclick="openTab(event, 'tab-workbook')"> Workbook Exercises</button></li>
             <li><button class="tab-btn" onclick="openTab(event, 'tab-exercises')"> Textbook Exercises</button></li>
@@ -671,10 +718,10 @@
             </div>
         </section>
 
-        <!-- TAB 2: VOCABULARY QUIZ FLASHCARDS -->
+        <!-- TAB 2: VOCABULARY QUIZ FLASHCARDS & SUPPLEMENTARY WORDS -->
         <section id="tab-vocab" class="tab-content">
             <div class="content-header">
-                <h2>Vocab Quiz Flashcards (Click Tile to Reveal Pinyin)</h2>
+                <h2>Vocab Quiz Flashcards &amp; Supplementary Words</h2>
             </div>
 
             <!-- PART 1 -->
@@ -964,7 +1011,7 @@
         <!-- TAB 3: GRAMMAR -->
         <section id="tab-grammar" class="tab-content">
             <div class="content-header">
-                <h2>Grammar Rules &amp; Deep Dive</h2>
+                <h2>Grammar Key Points &amp; Rules</h2>
             </div>
 
             <!-- GRAMMAR 1 -->
@@ -1329,7 +1376,7 @@
             <!-- WORKBOOK SECTION C (3-COLUMN GRID EXACTLY 3 PER ROW) -->
             <div class="card">
                 <div class="card-title">
-                    <span>Section C: Write the Clock Time in Pinyin</span>
+                    <span>Section C: Write the Clock Time in Pinyin (3 per row)</span>
                     <span class="page-badge">Workbook Pg 10</span>
                 </div>
                 
@@ -1382,7 +1429,7 @@
                 </div>
             </div>
 
-            <!-- WORKBOOK SECTION D (RESTORED TO STANDARD FULL-WIDTH LIST WITH ENGLISH TRANSLATIONS) -->
+            <!-- WORKBOOK SECTION D (FULL WIDTH LIST RESTORED WITH TRANSLATIONS) -->
             <div class="card">
                 <div class="card-title">
                     <span>Section D: Fill in the Blanks with Lesson 11 Vocabulary</span>
@@ -1520,7 +1567,7 @@
             </div>
         </section>
 
-        <!-- TAB 6: TEXTBOOK EXERCISES (PG 180-184) - COMPLETE REDESIGN -->
+        <!-- TAB 6: TEXTBOOK EXERCISES (PG 180-184) - FULLY ALIGNED TO LESSON 10 TEMPLATE & SPECIFIC REQUIREMENTS -->
         <section id="tab-exercises" class="tab-content">
             <div class="content-header">
                 <h2>Textbook Exercises (Pg 180–184)</h2>
@@ -1536,9 +1583,9 @@
                     🖱️ Interactive Mode: Click on any phrase card below to reveal its English translation!
                 </div>
 
-                <!-- (1) -->
+                <!-- (1) 6 in 1 line -->
                 <div class="drill-title">(1) Modal Verb "huì" (Learned Ability)</div>
-                <div class="phrase-grid">
+                <div class="phrase-grid-6">
                     <div class="phrase-card" onclick="this.classList.toggle('revealed')">
                         <div class="phrase-card-py">huì shuō Hànyǔ</div>
                         <div class="phrase-card-hz">会说汉语</div>
@@ -1571,9 +1618,9 @@
                     </div>
                 </div>
 
-                <!-- (2) -->
+                <!-- (2) 6 in 1 line -->
                 <div class="drill-title" style="margin-top:1.5rem;">(2) Modal Verb "néng" (Physical / Conditional Ability)</div>
-                <div class="phrase-grid">
+                <div class="phrase-grid-6">
                     <div class="phrase-card" onclick="this.classList.toggle('revealed')">
                         <div class="phrase-card-py">néng lái xuéyuàn</div>
                         <div class="phrase-card-hz">能来学院</div>
@@ -1606,7 +1653,7 @@
                     </div>
                 </div>
 
-                <!-- (3) -->
+                <!-- (3) 3 per row -->
                 <div class="drill-title" style="margin-top:1.5rem;">(3) Modal Verb "kěyǐ" (Permission / Appropriateness)</div>
                 <div class="phrase-grid">
                     <div class="phrase-card" onclick="this.classList.toggle('revealed')">
@@ -1641,9 +1688,10 @@
                     </div>
                 </div>
 
-                <!-- (4) -->
+                <!-- (4) 4 in Row 1, 4 in Row 2 -->
                 <div class="drill-title" style="margin-top:1.5rem;">(4) Modal Verb "yīnggāi" (Obligation / Advice)</div>
-                <div class="phrase-grid">
+                <div class="phrase-grid-4">
+                    <!-- Row 1: yīnggāi qǐchuáng to yīnggāi wánr -->
                     <div class="phrase-card" onclick="this.classList.toggle('revealed')">
                         <div class="phrase-card-py">yīnggāi qǐchuáng</div>
                         <div class="phrase-card-hz">应该起床</div>
@@ -1664,6 +1712,7 @@
                         <div class="phrase-card-hz">应该玩儿</div>
                         <div class="phrase-card-en">should play</div>
                     </div>
+                    <!-- Row 2: bù yīnggāi shuō to bù yīnggāi lái -->
                     <div class="phrase-card" onclick="this.classList.toggle('revealed')">
                         <div class="phrase-card-py">bù yīnggāi shuō</div>
                         <div class="phrase-card-hz">不应该说</div>
@@ -1686,7 +1735,7 @@
                     </div>
                 </div>
 
-                <!-- (5) -->
+                <!-- (5) 3 per row -->
                 <div class="drill-title" style="margin-top:1.5rem;">(5) Adverb "hái" with Negation (Not Yet)</div>
                 <div class="phrase-grid">
                     <div class="phrase-card" onclick="this.classList.toggle('revealed')">
@@ -1721,7 +1770,7 @@
                     </div>
                 </div>
 
-                <!-- (6) -->
+                <!-- (6) 3 per row -->
                 <div class="drill-title" style="margin-top:1.5rem;">(6) Verb + diǎnr + Object (Small Amount)</div>
                 <div class="phrase-grid">
                     <div class="phrase-card" onclick="this.classList.toggle('revealed')">
@@ -1771,14 +1820,14 @@
                     3. Each prompt card provides Pinyin (top), Chinese characters (middle), and English translation (bottom).
                 </div>
 
-                <!-- DRILL (1) -->
+                <!-- DRILL (1) - jǐ diǎn NOT bolded/colored -->
                 <div class="drill-block">
                     <div class="drill-title">Drill (1) Model: Asking &amp; Telling Clock Time (Pg 181)</div>
                     <div class="drill-flex">
                         <div class="drill-left-model">
                             <div class="bilingual-row">
-                                <div class="bilingual-py">A: Xiànzài <span class="slot-orange">jǐ diǎn</span>?</div>
-                                <div class="bilingual-hz">A: 现在 <span class="slot-orange">几点</span>？</div>
+                                <div class="bilingual-py">A: Xiànzài jǐ diǎn?</div>
+                                <div class="bilingual-hz">A: 现在几点？</div>
                                 <div class="bilingual-en">What time is it now?</div>
                             </div>
                             <div class="bilingual-row">
@@ -1788,41 +1837,42 @@
                             </div>
                         </div>
                         <div class="drill-right-prompts">
+                            <strong style="color: var(--primary-color); font-size: 1.05rem; margin-bottom: 2px; display: block;">🔄 Replaceable Prompts:</strong>
                             <div class="prompt-card border-orange">
-                                <div class="prompt-py">8:30 ➔ bā diǎn bàn / bā diǎn sānshí (fēn)</div>
-                                <div class="prompt-hz">八点半 / 八点三十分</div>
+                                <div class="prompt-py"><span class="slot-orange">bā diǎn bàn</span> / <span class="slot-orange">bā diǎn sānshí (fēn)</span> (8:30)</div>
+                                <div class="prompt-hz"><span class="slot-orange">八点半</span> / <span class="slot-orange">八点三十分</span></div>
                                 <div class="prompt-en">8:30</div>
                             </div>
                             <div class="prompt-card border-orange">
-                                <div class="prompt-py">9:58 ➔ jiǔ diǎn wǔshíbā (fēn) / chà liǎng fēn shí diǎn</div>
-                                <div class="prompt-hz">九点五十八分 / 差两分十点</div>
+                                <div class="prompt-py"><span class="slot-orange">jiǔ diǎn wǔshíbā (fēn)</span> / <span class="slot-orange">chà liǎng fēn shí diǎn</span> (9:58)</div>
+                                <div class="prompt-hz"><span class="slot-orange">九点五十八分</span> / <span class="slot-orange">差两分十点</span></div>
                                 <div class="prompt-en">9:58 / 2 minutes to 10:00</div>
                             </div>
                             <div class="prompt-card border-orange">
-                                <div class="prompt-py">10:08 ➔ shí diǎn líng bā fēn</div>
-                                <div class="prompt-hz">十点零八分</div>
+                                <div class="prompt-py"><span class="slot-orange">shí diǎn líng bā fēn</span> (10:08)</div>
+                                <div class="prompt-hz"><span class="slot-orange">十点零八分</span></div>
                                 <div class="prompt-en">10:08</div>
                             </div>
                             <div class="prompt-card border-orange">
-                                <div class="prompt-py">12:15 ➔ shí'èr diǎn yí kè / shí'èr diǎn shíwǔ (fēn)</div>
-                                <div class="prompt-hz">十二点一刻 / 十二点十五分</div>
+                                <div class="prompt-py"><span class="slot-orange">shí'èr diǎn yí kè</span> / <span class="slot-orange">shí'èr diǎn shíwǔ (fēn)</span> (12:15)</div>
+                                <div class="prompt-hz"><span class="slot-orange">十二点一刻</span> / <span class="slot-orange">十二点十五分</span></div>
                                 <div class="prompt-en">12:15 / a quarter past 12:00</div>
                             </div>
                             <div class="prompt-card border-orange">
-                                <div class="prompt-py">3:28 ➔ sān diǎn èrshíbā (fēn)</div>
-                                <div class="prompt-hz">三点二十八分</div>
+                                <div class="prompt-py"><span class="slot-orange">sān diǎn èrshíbā (fēn)</span> (3:28)</div>
+                                <div class="prompt-hz"><span class="slot-orange">三点二十八分</span></div>
                                 <div class="prompt-en">3:28</div>
                             </div>
                             <div class="prompt-card border-orange">
-                                <div class="prompt-py">5:45 ➔ wǔ diǎn sān kè / chà yí kè liù diǎn</div>
-                                <div class="prompt-hz">五点三刻 / 差一刻六点</div>
+                                <div class="prompt-py"><span class="slot-orange">wǔ diǎn sān kè</span> / <span class="slot-orange">chà yí kè liù diǎn</span> (5:45)</div>
+                                <div class="prompt-hz"><span class="slot-orange">五点三刻</span> / <span class="slot-orange">差一刻六点</span></div>
                                 <div class="prompt-en">5:45 / a quarter to 6:00</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- DRILL (2) -->
+                <!-- DRILL (2) - NO '+' -->
                 <div class="drill-block">
                     <div class="drill-title">Drill (2) Model: Routine Activity &amp; Time (Pg 181)</div>
                     <div class="drill-flex">
@@ -1839,26 +1889,27 @@
                             </div>
                         </div>
                         <div class="drill-right-prompts">
+                            <strong style="color: var(--primary-color); font-size: 1.05rem; margin-bottom: 2px; display: block;">🔄 Replaceable Prompts:</strong>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">xiàkè</span> + <span class="slot-pink">shíyī diǎn wǔshí / chà shí fēn shí'èr diǎn</span> (11:50)</div>
-                                <div class="prompt-hz"><span class="slot-orange">下课</span> + <span class="slot-pink">十一点五十 / 差十分十二点</span></div>
-                                <div class="prompt-en">finish class + 11:50</div>
+                                <div class="prompt-py"><span class="slot-orange">xiàkè</span> &nbsp; <span class="slot-pink">shíyī diǎn wǔshí / chà shí fēn shí'èr diǎn</span> (11:50)</div>
+                                <div class="prompt-hz"><span class="slot-orange">下课</span> &nbsp; <span class="slot-pink">十一点五十 / 差十分十二点</span></div>
+                                <div class="prompt-en">finish class &nbsp;•&nbsp; 11:50</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">chīfàn</span> + <span class="slot-pink">shí'èr diǎn yí kè / shí'èr diǎn shíwǔ</span> (12:15)</div>
-                                <div class="prompt-hz"><span class="slot-orange">吃饭</span> + <span class="slot-pink">十二点一刻 / 十二点十五</span></div>
-                                <div class="prompt-en">eat (a meal) + 12:15</div>
+                                <div class="prompt-py"><span class="slot-orange">chīfàn</span> &nbsp; <span class="slot-pink">shí'èr diǎn yí kè / shí'èr diǎn shíwǔ</span> (12:15)</div>
+                                <div class="prompt-hz"><span class="slot-orange">吃饭</span> &nbsp; <span class="slot-pink">十二点一刻 / 十二点十五</span></div>
+                                <div class="prompt-en">eat (a meal) &nbsp;•&nbsp; 12:15</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">xiě Hànzì</span> + <span class="slot-pink">bā diǎn èrshí</span> (8:20)</div>
-                                <div class="prompt-hz"><span class="slot-orange">写汉字</span> + <span class="slot-pink">八点二十</span></div>
-                                <div class="prompt-en">write Chinese characters + 8:20</div>
+                                <div class="prompt-py"><span class="slot-orange">xiě Hànzì</span> &nbsp; <span class="slot-pink">bā diǎn èrshí</span> (8:20)</div>
+                                <div class="prompt-hz"><span class="slot-orange">写汉字</span> &nbsp; <span class="slot-pink">八点二十</span></div>
+                                <div class="prompt-en">write Chinese characters &nbsp;•&nbsp; 8:20</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- DRILL (3) -->
+                <!-- DRILL (3) - NO '+' -->
                 <div class="drill-block">
                     <div class="drill-title">Drill (3) Model: Serial Verbs for Purpose (Pg 181)</div>
                     <div class="drill-flex">
@@ -1885,26 +1936,27 @@
                             </div>
                         </div>
                         <div class="drill-right-prompts">
+                            <strong style="color: var(--primary-color); font-size: 1.05rem; margin-bottom: 2px; display: block;">🔄 Replaceable Prompts:</strong>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">qù shāngchǎng</span> + <span class="slot-pink">mǎi dōngxi</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">去商场</span> + <span class="slot-pink">买东西</span></div>
-                                <div class="prompt-en">go to the shopping mall + buy things</div>
+                                <div class="prompt-py"><span class="slot-orange">qù shāngchǎng</span> &nbsp; <span class="slot-pink">mǎi dōngxi</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">去商场</span> &nbsp; <span class="slot-pink">买东西</span></div>
+                                <div class="prompt-en">go to the shopping mall &nbsp;•&nbsp; buy things</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">qù péngyou jiā</span> + <span class="slot-pink">wánr</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">去朋友家</span> + <span class="slot-pink">玩儿</span></div>
-                                <div class="prompt-en">go to a friend's home + hang out / play</div>
+                                <div class="prompt-py"><span class="slot-orange">qù péngyou jiā</span> &nbsp; <span class="slot-pink">wánr</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">去朋友家</span> &nbsp; <span class="slot-pink">玩儿</span></div>
+                                <div class="prompt-en">go to a friend's home &nbsp;•&nbsp; hang out / play</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">huí jiā</span> + <span class="slot-pink">kàn bàba, māma</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">回家</span> + <span class="slot-pink">看爸爸、妈妈</span></div>
-                                <div class="prompt-en">go home + visit parents</div>
+                                <div class="prompt-py"><span class="slot-orange">huí jiā</span> &nbsp; <span class="slot-pink">kàn bàba, māma</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">回家</span> &nbsp; <span class="slot-pink">看爸爸、妈妈</span></div>
+                                <div class="prompt-en">go home &nbsp;•&nbsp; visit parents</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- DRILL (4) -->
+                <!-- DRILL (4) - NO '+' -->
                 <div class="drill-block">
                     <div class="drill-title">Drill (4) Model: Language &amp; Instructor Inquiry (Pg 181)</div>
                     <div class="drill-flex">
@@ -1941,31 +1993,32 @@
                             </div>
                         </div>
                         <div class="drill-right-prompts">
+                            <strong style="color: var(--primary-color); font-size: 1.05rem; margin-bottom: 2px; display: block;">🔄 Replaceable Prompts:</strong>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">Fǎyǔ</span> + <span class="slot-pink">Wáng xiānsheng</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">法语</span> + <span class="slot-pink">王先生</span></div>
-                                <div class="prompt-en">French + Mr. Wang</div>
+                                <div class="prompt-py"><span class="slot-orange">Fǎyǔ</span> &nbsp; <span class="slot-pink">Wáng xiānsheng</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">法语</span> &nbsp; <span class="slot-pink">王先生</span></div>
+                                <div class="prompt-en">French &nbsp;•&nbsp; Mr. Wang</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">Déyǔ</span> + <span class="slot-pink">Sòng lǎoshī</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">德语</span> + <span class="slot-pink">宋老师</span></div>
-                                <div class="prompt-en">German + Teacher Song</div>
+                                <div class="prompt-py"><span class="slot-orange">Déyǔ</span> &nbsp; <span class="slot-pink">Sòng lǎoshī</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">德语</span> &nbsp; <span class="slot-pink">宋老师</span></div>
+                                <div class="prompt-en">German &nbsp;•&nbsp; Teacher Song</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">Éyǔ</span> + <span class="slot-pink">Zhāng jiàoshòu</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">俄语</span> + <span class="slot-pink">张教授</span></div>
-                                <div class="prompt-en">Russian + Professor Zhang</div>
+                                <div class="prompt-py"><span class="slot-orange">Éyǔ</span> &nbsp; <span class="slot-pink">Zhāng jiàoshòu</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">俄语</span> &nbsp; <span class="slot-pink">张教授</span></div>
+                                <div class="prompt-en">Russian &nbsp;•&nbsp; Professor Zhang</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">Rìyǔ</span> + <span class="slot-pink">Dīng xiǎojie</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">日语</span> + <span class="slot-pink">丁小姐</span></div>
-                                <div class="prompt-en">Japanese + Miss Ding</div>
+                                <div class="prompt-py"><span class="slot-orange">Rìyǔ</span> &nbsp; <span class="slot-pink">Dīng xiǎojie</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">日语</span> &nbsp; <span class="slot-pink">丁小姐</span></div>
+                                <div class="prompt-en">Japanese &nbsp;•&nbsp; Miss Ding</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- DRILL (5) -->
+                <!-- DRILL (5) - NO '+' -->
                 <div class="drill-block">
                     <div class="drill-title">Drill (5) Model: "huì" vs "néng" Distinction (Pg 182)</div>
                     <div class="drill-flex">
@@ -1992,23 +2045,24 @@
                             </div>
                         </div>
                         <div class="drill-right-prompts">
+                            <strong style="color: var(--primary-color); font-size: 1.05rem; margin-bottom: 2px; display: block;">🔄 Replaceable Prompts:</strong>
                             <div class="prompt-card border-orange">
-                                <div class="prompt-py">kāichē</div>
+                                <div class="prompt-py"><span class="slot-orange">kāichē</span></div>
                                 <div class="prompt-hz">开车</div>
                                 <div class="prompt-en">drive a car</div>
                             </div>
                             <div class="prompt-card border-orange">
-                                <div class="prompt-py">dǎ qiú</div>
+                                <div class="prompt-py"><span class="slot-orange">dǎ qiú</span></div>
                                 <div class="prompt-hz">打球</div>
                                 <div class="prompt-en">play ball</div>
                             </div>
                             <div class="prompt-card border-orange">
-                                <div class="prompt-py">tiàowǔ</div>
+                                <div class="prompt-py"><span class="slot-orange">tiàowǔ</span></div>
                                 <div class="prompt-hz">跳舞</div>
                                 <div class="prompt-en">dance</div>
                             </div>
                             <div class="prompt-card border-orange">
-                                <div class="prompt-py">chànggē</div>
+                                <div class="prompt-py"><span class="slot-orange">chànggē</span></div>
                                 <div class="prompt-hz">唱歌</div>
                                 <div class="prompt-en">sing a song</div>
                             </div>
@@ -2016,7 +2070,7 @@
                     </div>
                 </div>
 
-                <!-- DRILL (6) -->
+                <!-- DRILL (6) - NO '+', SWAPPED 1 AND 2 -->
                 <div class="drill-block">
                     <div class="drill-title">Drill (6) Model: Inability with Adverb "hái" (Pg 182)</div>
                     <div class="drill-flex">
@@ -2043,26 +2097,27 @@
                             </div>
                         </div>
                         <div class="drill-right-prompts">
+                            <strong style="color: var(--primary-color); font-size: 1.05rem; margin-bottom: 2px; display: block;">🔄 Replaceable Prompts:</strong>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">kàn</span> + <span class="slot-pink">Zhōngguó lìshǐ shū</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">看</span> + <span class="slot-pink">中国历史书</span></div>
-                                <div class="prompt-en">read / look + Chinese history book</div>
+                                <div class="prompt-py"><span class="slot-orange">kàn</span> &nbsp; <span class="slot-pink">Zhōngguó lìshǐ shū</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">看</span> &nbsp; <span class="slot-pink">中国历史书</span></div>
+                                <div class="prompt-en">read / look &nbsp;•&nbsp; Chinese history book</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">jiāo</span> + <span class="slot-pink">Hànyǔ</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">教</span> + <span class="slot-pink">汉语</span></div>
-                                <div class="prompt-en">teach + Chinese</div>
+                                <div class="prompt-py"><span class="slot-orange">jiāo</span> &nbsp; <span class="slot-pink">Hànyǔ</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">教</span> &nbsp; <span class="slot-pink">汉语</span></div>
+                                <div class="prompt-en">teach &nbsp;•&nbsp; Chinese</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">huídá</span> + <span class="slot-pink">tā de wèntí</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">回答</span> + <span class="slot-pink">他的问题</span></div>
-                                <div class="prompt-en">answer + his question</div>
+                                <div class="prompt-py"><span class="slot-orange">huídá</span> &nbsp; <span class="slot-pink">tā de wèntí</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">回答</span> &nbsp; <span class="slot-pink">他的问题</span></div>
+                                <div class="prompt-en">answer &nbsp;•&nbsp; his question</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- DRILL (7) -->
+                <!-- DRILL (7) - NO '+' -->
                 <div class="drill-block">
                     <div class="drill-title">Drill (7) Model: Permission with "kěyǐ" (Pg 182)</div>
                     <div class="drill-flex">
@@ -2079,26 +2134,27 @@
                             </div>
                         </div>
                         <div class="drill-right-prompts">
+                            <strong style="color: var(--primary-color); font-size: 1.05rem; margin-bottom: 2px; display: block;">🔄 Replaceable Prompts:</strong>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">shuō</span> + <span class="slot-pink">Yīngyǔ</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">说</span> + <span class="slot-pink">英语</span></div>
-                                <div class="prompt-en">speak + English</div>
+                                <div class="prompt-py"><span class="slot-orange">shuō</span> &nbsp; <span class="slot-pink">Yīngyǔ</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">说</span> &nbsp; <span class="slot-pink">英语</span></div>
+                                <div class="prompt-en">speak &nbsp;•&nbsp; English</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">kàn</span> + <span class="slot-pink">shū</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">看</span> + <span class="slot-pink">书</span></div>
-                                <div class="prompt-en">read + book</div>
+                                <div class="prompt-py"><span class="slot-orange">kàn</span> &nbsp; <span class="slot-pink">shū</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">看</span> &nbsp; <span class="slot-pink">书</span></div>
+                                <div class="prompt-en">read &nbsp;•&nbsp; book</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">zuò</span> + <span class="slot-pink">nǐ de chē</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">坐</span> + <span class="slot-pink">你的车</span></div>
-                                <div class="prompt-en">take / ride + your car</div>
+                                <div class="prompt-py"><span class="slot-orange">zuò</span> &nbsp; <span class="slot-pink">nǐ de chē</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">坐</span> &nbsp; <span class="slot-pink">你的车</span></div>
+                                <div class="prompt-en">take / ride &nbsp;•&nbsp; your car</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- DRILL (8) -->
+                <!-- DRILL (8) - NO '+', DIǍNR REMOVED FROM PROMPTS -->
                 <div class="drill-block">
                     <div class="drill-title">Drill (8) Model: Recommendation with "yīnggāi" (Pg 182)</div>
                     <div class="drill-flex">
@@ -2120,27 +2176,28 @@
                             </div>
                         </div>
                         <div class="drill-right-prompts">
+                            <strong style="color: var(--primary-color); font-size: 1.05rem; margin-bottom: 2px; display: block;">🔄 Replaceable Prompts:</strong>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">chī</span> + diǎnr + <span class="slot-pink">shòumiàn</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">吃</span> + 点儿 + <span class="slot-pink">寿面</span></div>
-                                <div class="prompt-en">eat + some + longevity noodles</div>
+                                <div class="prompt-py"><span class="slot-orange">chī</span> &nbsp; <span class="slot-pink">shòumiàn</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">吃</span> &nbsp; <span class="slot-pink">寿面</span></div>
+                                <div class="prompt-en">eat &nbsp;•&nbsp; longevity noodles</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">hē</span> + diǎnr + <span class="slot-pink">pútaojiǔ</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">喝</span> + 点儿 + <span class="slot-pink">葡萄酒</span></div>
-                                <div class="prompt-en">drink + some + grape wine</div>
+                                <div class="prompt-py"><span class="slot-orange">hē</span> &nbsp; <span class="slot-pink">pútaojiǔ</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">喝</span> &nbsp; <span class="slot-pink">葡萄酒</span></div>
+                                <div class="prompt-en">drink &nbsp;•&nbsp; grape wine</div>
                             </div>
                             <div class="prompt-card border-dual">
-                                <div class="prompt-py"><span class="slot-orange">sòng</span> + diǎnr + <span class="slot-pink">lǐwù</span></div>
-                                <div class="prompt-hz"><span class="slot-orange">送</span> + 点儿 + <span class="slot-pink">礼物</span></div>
-                                <div class="prompt-en">give + some + gifts / presents</div>
+                                <div class="prompt-py"><span class="slot-orange">sòng</span> &nbsp; <span class="slot-pink">lǐwù</span></div>
+                                <div class="prompt-hz"><span class="slot-orange">送</span> &nbsp; <span class="slot-pink">礼物</span></div>
+                                <div class="prompt-en">give &nbsp;•&nbsp; gifts / presents</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- EXERCISE 3: ASK A QUESTION CONCERNING UNDERLINED WORDS -->
+            <!-- EXERCISE 3: ASK A QUESTION CONCERNING UNDERLINED WORDS (ITEM 4 UNDERLINES ONLY 'BĀ DIǍN') -->
             <div class="card">
                 <div class="card-title">
                     <span>3. Ask a Question Concerning the Underlined Words</span>
@@ -2198,18 +2255,19 @@
                     </div>
                 </div>
 
+                <!-- ITEM 4: ONLY 'BĀ DIǍN' UNDERLINED -->
                 <div class="wb-item">
                     <div class="bilingual-row">
-                        <div class="bilingual-py">(4) <u class="ud-slot">Míngtiān wǎnshang bā diǎn</u> tāmen yǒu yí ge jùhuì.</div>
-                        <div class="bilingual-hz">(4) <u class="ud-slot">明天晚上八点</u> 他们有一个聚会。</div>
-                        <div class="bilingual-en">They have a gathering <u class="ud-slot">tomorrow evening at 8:00</u>.</div>
+                        <div class="bilingual-py">(4) Míngtiān wǎnshang <u class="ud-slot">bā diǎn</u> tāmen yǒu yí ge jùhuì.</div>
+                        <div class="bilingual-hz">(4) 明天晚上 <u class="ud-slot">八点</u> 他们有一个聚会。</div>
+                        <div class="bilingual-en">Tomorrow evening at <u class="ud-slot">8:00</u> they have a gathering.</div>
                     </div>
                     <div class="wb-ans-box" onclick="this.classList.toggle('revealed')">
                         <div class="ans-hint"> Click to Reveal Question</div>
                         <div class="ans-content">
-                            <div class="bilingual-py">Q: <u class="ud-ans">Míngtiān wǎnshang jǐ diǎn tāmen yǒu yí ge jùhuì?</u> / <u class="ud-ans">Tāmen shénme shíhou yǒu yí ge jùhuì?</u></div>
-                            <div class="bilingual-hz">Q: <u class="ud-ans">明天晚上几点他们有一个聚会？</u> / <u class="ud-ans">他们什么时候有一个聚会？</u></div>
-                            <div class="bilingual-en">What time tomorrow evening do they have a party? / When do they have a party?</div>
+                            <div class="bilingual-py">Q: <u class="ud-ans">Míngtiān wǎnshang jǐ diǎn tāmen yǒu yí ge jùhuì?</u></div>
+                            <div class="bilingual-hz">Q: <u class="ud-ans">明天晚上几点他们有一个聚会？</u></div>
+                            <div class="bilingual-en">What time tomorrow evening do they have a party?</div>
                         </div>
                     </div>
                 </div>
@@ -2234,9 +2292,9 @@
                         <div class="bilingual-en">Excuse me, what time is your watch now?</div>
                     </div>
                     <div class="bilingual-row">
-                        <div class="bilingual-py">B: <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">______ (Click to Reveal)</span><span class="blank-content"><span class="blank-py">Chà yí kè sì diǎn / Sān diǎn sìshíwǔ fēn</span><span class="blank-hz">差一刻四点 / 三点四十五分</span></span></span>, wǒ de biǎo kuài le yìdiǎnr.</div>
-                        <div class="bilingual-hz">B: [______], 我的表快了一点儿。</div>
-                        <div class="bilingual-en">B: [A quarter to 4 / 3:45], my watch is a little fast.</div>
+                        <div class="bilingual-py">B: <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="blank-content"><span class="blank-py">Chà yí kè sì diǎn / Sān diǎn sìshíwǔ fēn</span></span></span>, wǒ de biǎo kuài le yìdiǎnr.</div>
+                        <div class="bilingual-hz">B: <strong style="color: var(--primary-color);">差一刻四点 / 三点四十五分</strong>，我的表快了一点儿。</div>
+                        <div class="bilingual-en">B: <strong style="color: var(--primary-color);">A quarter to 4 / 3:45</strong>, my watch is a little fast.</div>
                     </div>
                     <div class="bilingual-row">
                         <div class="bilingual-py">A: Xièxie.</div>
@@ -2268,14 +2326,14 @@
                         <div class="bilingual-en">Great. What time to go?</div>
                     </div>
                     <div class="bilingual-row">
-                        <div class="bilingual-py">A: <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">______ (Click to Reveal)</span><span class="blank-content"><span class="blank-py">Qī diǎn qù</span><span class="blank-hz">七点去</span></span></span>, zěnmeyàng?</div>
-                        <div class="bilingual-hz">A: [______]，怎么样？</div>
-                        <div class="bilingual-en">A: [Go at 7:00], how about that?</div>
+                        <div class="bilingual-py">A: <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="blank-content"><span class="blank-py">Qī diǎn qù</span></span></span>, zěnmeyàng?</div>
+                        <div class="bilingual-hz">A: <strong style="color: var(--primary-color);">七点去</strong>，怎么样？</div>
+                        <div class="bilingual-en">A: <strong style="color: var(--primary-color);">Go at 7:00</strong>, how about that?</div>
                     </div>
                     <div class="bilingual-row">
-                        <div class="bilingual-py">B: Wǎn yìdiǎnr, <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">______ (Click to Reveal)</span><span class="blank-content"><span class="blank-py">qī diǎn bàn</span><span class="blank-hz">七点半</span></span></span>, hǎo ma?</div>
-                        <div class="bilingual-hz">B: 晚一点儿，[______]，好吗？</div>
-                        <div class="bilingual-en">B: A bit later, [7:30], OK?</div>
+                        <div class="bilingual-py">B: Wǎn yìdiǎnr, <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="blank-content"><span class="blank-py">qī diǎn bàn</span></span></span>, hǎo ma?</div>
+                        <div class="bilingual-hz">B: 晚一点儿，<strong style="color: var(--primary-color);">七点半</strong>，好吗？</div>
+                        <div class="bilingual-en">B: A bit later, <strong style="color: var(--primary-color);">7:30</strong>, OK?</div>
                     </div>
                     <div class="bilingual-row">
                         <div class="bilingual-py">A: Hǎo.</div>
@@ -2288,9 +2346,9 @@
                 <div class="drill-title" style="margin-top:1.5rem;">【表示能力 Expressing one's ability】(1) Pg 183</div>
                 <div class="wb-item">
                     <div class="bilingual-row">
-                        <div class="bilingual-py">A: Nǐ huì bu huì <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">______ (Click to Reveal)</span><span class="blank-content"><span class="blank-py">dǎ qiú</span><span class="blank-hz">打球</span></span></span>?</div>
-                        <div class="bilingual-hz">A: 你会不会 [______]？</div>
-                        <div class="bilingual-en">Can you [play ball]?</div>
+                        <div class="bilingual-py">A: Nǐ huì bu huì <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="blank-content"><span class="blank-py">dǎ qiú</span></span></span>?</div>
+                        <div class="bilingual-hz">A: 你会不会 <strong style="color: var(--primary-color);">打球</strong>？</div>
+                        <div class="bilingual-en">Can you <strong style="color: var(--primary-color);">play ball</strong>?</div>
                     </div>
                     <div class="bilingual-row">
                         <div class="bilingual-py">B: Wǒ huì yìdiǎnr.</div>
@@ -2317,9 +2375,9 @@
                         <div class="bilingual-en">How do you write this Chinese character?</div>
                     </div>
                     <div class="bilingual-row">
-                        <div class="bilingual-py">B: Duìbuqǐ, wǒ yě <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">______ (Click to Reveal)</span><span class="blank-content"><span class="blank-py">bù zhīdào</span><span class="blank-hz">不知道</span></span></span>.</div>
-                        <div class="bilingual-hz">B: 对不起，我也 [______]。</div>
-                        <div class="bilingual-en">Sorry, I [don't know] either.</div>
+                        <div class="bilingual-py">B: Duìbuqǐ, wǒ yě <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="blank-content"><span class="blank-py">bù zhīdào</span></span></span>.</div>
+                        <div class="bilingual-hz">B: 对不起，我也 <strong style="color: var(--primary-color);">不知道</strong>。</div>
+                        <div class="bilingual-en">Sorry, I <strong style="color: var(--primary-color);">don't know</strong> either.</div>
                     </div>
                 </div>
 
@@ -2331,9 +2389,9 @@
                         <div class="bilingual-en">Can you take Chinese philosophy now?</div>
                     </div>
                     <div class="bilingual-row">
-                        <div class="bilingual-py">B: Wǒ xiànzài hái <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">______ (Click to Reveal)</span><span class="blank-content"><span class="blank-py">bù néng</span><span class="blank-hz">不能</span></span></span>.</div>
-                        <div class="bilingual-hz">B: 我现在还 [______]。</div>
-                        <div class="bilingual-en">I still [cannot] now.</div>
+                        <div class="bilingual-py">B: Wǒ xiànzài hái <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="blank-content"><span class="blank-py">bù néng</span></span></span>.</div>
+                        <div class="bilingual-hz">B: 我现在还 <strong style="color: var(--primary-color);">不能</strong>。</div>
+                        <div class="bilingual-en">I still <strong style="color: var(--primary-color);">cannot</strong> now.</div>
                     </div>
                     <div class="bilingual-row">
                         <div class="bilingual-py">A: Wèi shénme?</div>
@@ -2370,9 +2428,9 @@
                         <div class="bilingual-en">May I smoke?</div>
                     </div>
                     <div class="bilingual-row">
-                        <div class="bilingual-py">B: Duìbuqǐ, zhèr bù kěyǐ <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">______ (Click to Reveal)</span><span class="blank-content"><span class="blank-py">xīyān</span><span class="blank-hz">吸烟</span></span></span>.</div>
-                        <div class="bilingual-hz">B: 对不起，这儿不可以 [______]。</div>
-                        <div class="bilingual-en">Sorry, smoking is not permitted here.</div>
+                        <div class="bilingual-py">B: Duìbuqǐ, zhèr bù kěyǐ <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="blank-content"><span class="blank-py">xīyān</span></span></span>.</div>
+                        <div class="bilingual-hz">B: 对不起，这儿不可以 <strong style="color: var(--primary-color);">吸烟</strong>。</div>
+                        <div class="bilingual-en">Sorry, <strong style="color: var(--primary-color);">smoking</strong> is not permitted here.</div>
                     </div>
                 </div>
 
@@ -2384,9 +2442,9 @@
                         <div class="bilingual-en">Teacher, today's class is very difficult, I have a question, may I ask you?</div>
                     </div>
                     <div class="bilingual-row">
-                        <div class="bilingual-py">B: <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">______ (Click to Reveal)</span><span class="blank-content"><span class="blank-py">Dāngrán kěyǐ</span><span class="blank-hz">当然可以</span></span></span>. Míngtiān xiàwǔ wǒ yǒu shíjiān, nǐ sì diǎn lái, hǎo ma?</div>
-                        <div class="bilingual-hz">B: [______]。明天下午我有时间，你四点来，好吗？</div>
-                        <div class="bilingual-en">[Of course you may]. Tomorrow afternoon I have time, you come at 4:00, OK?</div>
+                        <div class="bilingual-py">B: <span class="inline-blank" onclick="this.classList.toggle('revealed')"><span class="blank-hint">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="blank-content"><span class="blank-py">Dāngrán kěyǐ</span></span></span>. Míngtiān xiàwǔ wǒ yǒu shíjiān, nǐ sì diǎn lái, hǎo ma?</div>
+                        <div class="bilingual-hz">B: <strong style="color: var(--primary-color);">当然可以</strong>。明天下午我有时间，你四点来，好吗？</div>
+                        <div class="bilingual-en">B: <strong style="color: var(--primary-color);">Of course you may</strong>. Tomorrow afternoon I have time, you come at 4:00, OK?</div>
                     </div>
                     <div class="bilingual-row">
                         <div class="bilingual-py">A: Hǎo, xièxie.</div>
@@ -2404,26 +2462,26 @@
                 </div>
                 
                 <div class="click-hint">
-                    📖 Side-by-Side Reading Passage (Left: Pinyin &amp; Hanzi | Right: Aligned English Translation):
+                    📖 Side-by-Side Balanced Reading Passage (Left: Pinyin &amp; Hanzi | Right: Parallel English Translation):
                 </div>
 
                 <div class="reading-dual-block">
                     <!-- LEFT COLUMN: PINYIN & HANZI STACKED -->
                     <div class="reading-left">
-                        <div class="bilingual-row" style="margin-bottom:1.2rem;">
+                        <div class="bilingual-row" style="margin-bottom:1.4rem;">
                             <div class="bilingual-py">Xīngqītiān Lín Nà dào yí ge Yīngguó péngyou jiā wánr. Xīngqīyī bā diǎn tā yǒu kè, qī diǎn sān kè tā dǎdī huí xuéyuàn shàngkè. Nàge sījī jīnnián wǔshí'èr suì, tā yǒu yí ge sūnnür, jīnnián liù suì. Tā shuō Lín Nà de Hànyǔ hěn hǎo. Tā yě xǐhuan wàiyǔ, xiànzài gēn tā sūnnür xué Yīngyǔ. Tāmen chà wǔ fēn bā diǎn dào xuéyuàn.</div>
-                            <div class="bilingual-hz">星期天林娜到一个英国朋友家玩儿。星期一八点她有课，七点三刻她打的回学院上课。那个司机今年五十二岁，他有一个孙女儿，今年六岁。他说林娜的汉语很好。他也喜欢外语，现在跟他孙女儿学英语。他们差五分八点到学院。</div>
+                            <div class="bilingual-hz" style="margin-top: 4px;">星期天林娜到一个英国朋友家玩儿。星期一八点她有课，七点三刻她打的回学院上课。那个司机今年五十二岁，他有一个孙女儿，今年六岁。他说林娜的汉语很好。他也喜欢外语，现在跟他孙女儿学英语。他们差五分八点到学院。</div>
                         </div>
 
                         <div class="bilingual-row">
                             <div class="bilingual-py">Mǎ Dàwéi xīngqītiān hěn máng. Tā shàngwǔ qù shāngchǎng mǎi dōngxi, xiàwǔ qù péngyou jiā wánr, wǎnshang hěn wǎn huí xuéyuàn. Tā shí'èr diǎn xiě Hànzì, liǎng diǎnzhōng shuìjiào. Xīngqīyī bā diǎn shàngkè, tā bā diǎn shí fēn hái méiyǒu qǐchuáng. Chén lǎoshī hěn bù gāoxìng, tā wèn Dīng Lìbō: "Mǎ Dàwéi zài nǎr?" Dīng Lìbō shuō Mǎ Dàwéi xiànzài hái méiyǒu qǐchuáng, tā bù néng lái shàngkè.</div>
-                            <div class="bilingual-hz">马大为星期天很忙。他上午去商场买东西，下午去朋友家玩儿，晚上很晚回学院。他十二点写汉字，两点钟睡觉。星期一八点上课，他八点十分还没有起床。陈老师很不高兴，她问丁力波：“马大为在哪儿？”丁力波说马大为现在还没有起床，他不能来上课。</div>
+                            <div class="bilingual-hz" style="margin-top: 4px;">马大为星期天很忙。他上午去商场买东西，下午去朋友家玩儿，晚上很晚回学院。他十二点写汉字，两点钟睡觉。星期一八点上课，他八点十分还没有起床。陈老师很不高兴，她问丁力波：“马大为在哪儿？”丁力波说马大为现在还没有起床，他不能来上课。</div>
                         </div>
                     </div>
 
-                    <!-- RIGHT COLUMN: ALIGNED ENGLISH TRANSLATION -->
+                    <!-- RIGHT COLUMN: PARALLEL BALANCED ENGLISH TRANSLATION -->
                     <div class="reading-right">
-                        <div style="margin-bottom:1.2rem;">
+                        <div style="margin-bottom:1.4rem;">
                             On Sunday, Lin Na went to a British friend's home to hang out. On Monday at 8:00 AM she has class, so at 7:45 AM she took a taxi back to the institute to attend class. That driver is 52 years old this year, and he has a granddaughter who is 6 years old this year. He said Lin Na's Chinese is very good. He also likes foreign languages, and is now learning English from his granddaughter. They arrived at the institute at 7:55 AM.
                         </div>
                         <div>
@@ -2432,7 +2490,7 @@
                     </div>
                 </div>
 
-                <!-- 8 TEXT COMPREHENSION QUESTIONS (CLICK BOX TO REVEAL ANSWER) -->
+                <!-- 8 TEXT COMPREHENSION QUESTIONS (NO NUMBER ON HANZI, NO "YĪNWÈI" IN ANSWER 8) -->
                 <div class="card-title" style="margin-top:1.8rem;">
                     <span>8 Text Comprehension Questions (Click Box to Reveal Answer):</span>
                 </div>
@@ -2440,7 +2498,7 @@
                 <div class="wb-item">
                     <div class="bilingual-row">
                         <div class="bilingual-py">1. Lín Nà xīngqītiān zuò shénme?</div>
-                        <div class="bilingual-hz">1. 林娜星期天做什么？</div>
+                        <div class="bilingual-hz">林娜星期天做什么？</div>
                         <div class="bilingual-en">What does Lin Na do on Sunday?</div>
                     </div>
                     <div class="wb-ans-box" onclick="this.classList.toggle('revealed')">
@@ -2456,7 +2514,7 @@
                 <div class="wb-item">
                     <div class="bilingual-row">
                         <div class="bilingual-py">2. Sījī jīnnián duō dà suìshu?</div>
-                        <div class="bilingual-hz">2. 司机今年多大岁数？</div>
+                        <div class="bilingual-hz">司机今年多大岁数？</div>
                         <div class="bilingual-en">How old is the driver this year?</div>
                     </div>
                     <div class="wb-ans-box" onclick="this.classList.toggle('revealed')">
@@ -2472,7 +2530,7 @@
                 <div class="wb-item">
                     <div class="bilingual-row">
                         <div class="bilingual-py">3. Sījī xiànzài xuéxí shénme yǔyán?</div>
-                        <div class="bilingual-hz">3. 司机现在学习什么语言？</div>
+                        <div class="bilingual-hz">司机现在学习什么语言？</div>
                         <div class="bilingual-en">What language is the driver studying now?</div>
                     </div>
                     <div class="wb-ans-box" onclick="this.classList.toggle('revealed')">
@@ -2488,7 +2546,7 @@
                 <div class="wb-item">
                     <div class="bilingual-row">
                         <div class="bilingual-py">4. Lín Nà shénme shíhou dào xuéyuàn?</div>
-                        <div class="bilingual-hz">4. 林娜什么时候到学院？</div>
+                        <div class="bilingual-hz">林娜什么时候到学院？</div>
                         <div class="bilingual-en">When does Lin Na arrive at the institute?</div>
                     </div>
                     <div class="wb-ans-box" onclick="this.classList.toggle('revealed')">
@@ -2504,7 +2562,7 @@
                 <div class="wb-item">
                     <div class="bilingual-row">
                         <div class="bilingual-py">5. Sījī shuō Lín Nà de Hànyǔ zěnmeyàng?</div>
-                        <div class="bilingual-hz">5. 司机说林娜的汉语怎么样？</div>
+                        <div class="bilingual-hz">司机说林娜的汉语怎么样？</div>
                         <div class="bilingual-en">What does the driver say about Lin Na's Chinese?</div>
                     </div>
                     <div class="wb-ans-box" onclick="this.classList.toggle('revealed')">
@@ -2520,7 +2578,7 @@
                 <div class="wb-item">
                     <div class="bilingual-row">
                         <div class="bilingual-py">6. Mǎ Dàwéi xīngqītiān shàngwǔ zuò shénme?</div>
-                        <div class="bilingual-hz">6. 马大为星期天上午做什么？</div>
+                        <div class="bilingual-hz">马大为星期天上午做什么？</div>
                         <div class="bilingual-en">What does Ma Dawei do on Sunday morning?</div>
                     </div>
                     <div class="wb-ans-box" onclick="this.classList.toggle('revealed')">
@@ -2536,7 +2594,7 @@
                 <div class="wb-item">
                     <div class="bilingual-row">
                         <div class="bilingual-py">7. Mǎ Dàwéi jǐ diǎn shuìjiào?</div>
-                        <div class="bilingual-hz">7. 马大为几点睡觉？</div>
+                        <div class="bilingual-hz">马大为几点睡觉？</div>
                         <div class="bilingual-en">What time does Ma Dawei sleep?</div>
                     </div>
                     <div class="wb-ans-box" onclick="this.classList.toggle('revealed')">
@@ -2553,16 +2611,16 @@
                     <div class="wb-q">
                         <div class="bilingual-row">
                             <div class="bilingual-py">8. Wèi shénme Chén lǎoshī hěn bù gāoxìng?</div>
-                            <div class="bilingual-hz">8. 为什么陈老师很不高兴？</div>
+                            <div class="bilingual-hz">为什么陈老师很不高兴？</div>
                             <div class="bilingual-en">Why is Teacher Chen very unhappy?</div>
                         </div>
                     </div>
                     <div class="wb-ans-box" onclick="this.classList.toggle('revealed')">
                         <div class="ans-hint"> Click to Reveal Answer</div>
                         <div class="ans-content">
-                            <div class="bilingual-py"><u class="ud-ans">Yīnwèi bā diǎn shí fēn Mǎ Dàwéi hái méiyǒu qǐchuáng, bù néng lái shàngkè.</u></div>
-                            <div class="bilingual-hz"><u class="ud-ans">因为八点十分马大为还没有起床，不能来上课。</u></div>
-                            <div class="bilingual-en">Because Ma Dawei still hasn't gotten up at 8:10 and cannot come to class.</div>
+                            <div class="bilingual-py"><u class="ud-ans">Bā diǎn shí fēn Mǎ Dàwéi hái méiyǒu qǐchuáng, bù néng lái shàngkè.</u></div>
+                            <div class="bilingual-hz"><u class="ud-ans">八点十分马大为还没有起床，不能来上课。</u></div>
+                            <div class="bilingual-en">At 8:10 Ma Dawei still hasn't gotten up, and cannot come to class.</div>
                         </div>
                     </div>
                 </div>
